@@ -1,5 +1,5 @@
 import SimpleLightbox from 'simplelightbox';
-
+import 'simplelightbox/dist/simple-lightbox.min.css';
 // Add imports above this line
 import { galleryItems } from './gallery-items';
 // Change code below this line
@@ -11,6 +11,7 @@ const makeGalleryArr = galleryItems.map(e => {
   <a class="gallery__item" href=${e.original}>
   <img class="gallery__image" src=${e.preview} alt=${e.description} />
 </a>`;
+
   return galarryItemEl;
 });
 

@@ -1,14 +1,40 @@
 'use strict';
 import player from '@vimeo/player';
+import { throttle } from 'lodash.throttle';
 
-const iframe = document.querySelector('iframe');
+const iframe = document.querySelector('#vimeo-player');
 
+const player = new Player(iframe, {
+  id: 12332131312,
+  width: 640,
+});
+
+player.on(`timeupdate`, function (data) {
+  localStorage.setItem(`timecode`, seconds);
+});
+
+// timeupdate
+// Triggered as the currentTime of the video updates. It generally fires every 250ms, but it may vary depending on the browser.
+
+// {
+//     duration: 61.857
+//     percent: 0.049
+//     seconds: 3.034
+// }
+
+// player.on('eventName', function (data) {
+//   localStorage.setItem(`timecode`, data.seconds);
+// });
+
+console.dir(localStorage.getItem);
+// let currentTime = Number(localStorage.getItem(video));
 // console.log(iframe.attributes);
-const timeLineEl = document.querySelector('div.vp-progress');
-console.log('timeLineEl :>> ', timeLineEl);
-const bodeEl = document.querySelector(`.vp-center`);
-console.dir('bodeEl :>> ', bodeEl);
-// console.dir(iframe.currentTime);
+
+// const timeLineEl = document.querySelector('div.vp-progress');
+// console.log('timeLineEl :>> ', timeLineEl);
+// const bodeEl = document.querySelector(`.vp-center`);
+// console.dir('bodeEl :>> ', bodeEl);
+// // console.dir(iframe.currentTime);
 // getCurrentTime(iframe);
 // const PlayedEl = document.querySelector('played');
 // console.log(iframe);

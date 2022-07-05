@@ -1,17 +1,45 @@
 'use strict';
-import player from '@vimeo/player';
-import { throttle } from 'lodash.throttle';
 
-const iframe = document.querySelector('#vimeo-player');
+import throttle from 'lodash.throttle';
+import Player from '@vimeo/player';
 
-const player = new Player(iframe, {
-  id: 12332131312,
+const playerEl = document.querySelector('iframe');
+
+const player = new Player(playerEl, {
+  id: 19231868,
   width: 640,
 });
 
-player.on(`timeupdate`, function (data) {
-  localStorage.setItem(`timecode`, seconds);
-});
+let timeline = Number(localStorage.getItem(`timecode`));
+
+player.setCurrentTime(timeline);
+
+player.on(
+  `timeupdate`,
+  throttle(data => {
+    localStorage.setItem(`timecode`, data.seconds);
+  }, 1000)
+);
+// const player = new Vimeo.Player(iframe);
+
+// player.on('play', function () {
+//   console.log('played the video!');
+// });
+
+// player.getVideoTitle().then(function (title) {
+//   console.log('title:', title);
+// });
+
+// const iframe = document.querySelector('#vimeo-player');
+
+// const player = new Player(iframe, {
+//   id: 12332131312,
+//   width: 640,
+// });
+
+// player.on(`timeupdate`, function (data) {
+//   localStorage.setItem(`timecode`, seconds);
+// });
 
 // timeupdate
 // Triggered as the currentTime of the video updates. It generally fires every 250ms, but it may vary depending on the browser.
@@ -26,7 +54,7 @@ player.on(`timeupdate`, function (data) {
 //   localStorage.setItem(`timecode`, data.seconds);
 // });
 
-console.dir(localStorage.getItem);
+// console.dir(localStorage.getItem);
 // let currentTime = Number(localStorage.getItem(video));
 // console.log(iframe.attributes);
 

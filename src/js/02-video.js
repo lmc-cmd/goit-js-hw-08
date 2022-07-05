@@ -1,17 +1,32 @@
 'use strict';
-// import Player from '../@vimeo/player';
+import player from '@vimeo/player';
 
 const iframe = document.querySelector('iframe');
 
-// const idPlayer = new Vimeo.Player('player1');
-// const player = new Player('handstick', {
-//   id: 19231868,
-//   width: 640,
-// });np
-
-// player.on('play', function () {
-//   console.log('played the video!');
+// console.log(iframe.attributes);
+const timeLineEl = document.querySelector('div.vp-progress');
+console.log('timeLineEl :>> ', timeLineEl);
+const bodeEl = document.querySelector(`.vp-center`);
+console.dir('bodeEl :>> ', bodeEl);
+// console.dir(iframe.currentTime);
+// getCurrentTime(iframe);
+// const PlayedEl = document.querySelector('played');
+// console.log(iframe);
+// iframe.addEventListener(`click`, e => {
+//   e.preventDefault;
+//   console.log(`e.target`);
+//   localStorage.setItem(e);
 // });
+// // player
+
+//   .getCurrentTime()
+//   .then(function (seconds) {
+//     console.log(seconds);
+//     // seconds = the current playback position
+//   })
+//   .catch(function (error) {
+//     // an error occurred
+//   });
 
 // + [getCurrentTime](#getcurrenttime-promisenumber-error)
 //     + [setCurrentTime](#setcurrenttimeseconds-number-promisenumber-rangeerrorerror)

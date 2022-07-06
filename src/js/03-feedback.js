@@ -24,8 +24,6 @@ function onSubmitForm(e) {
   const data = JSON.parse(localStorage.getItem('feedback-form-state'));
   const email = document.querySelector('.feedback-form input');
   const message = document.querySelector('.feedback-form textarea');
-  if (data) {
-    email.value = data.email;
-    message.value = data.message;
-  }
+  data.email ? (email.value = data.email) : (email.value = ``);
+  data.message ? (message.value = data.message) : (message.value = ``);
 })();

@@ -1,31 +1,42 @@
-'use strict';
-
 import throttle from 'lodash.throttle';
 
-const formEl = document.querySelector('.feedback-form');
-formEl.addEventListener('input', throttle(onFormRecord, 500));
-formEl.addEventListener('submit', onSubmitForm);
+const FEEDBACK_FORM_LOCAL_STORAGE_KEY = 'feedback-form-state';
+const feedbackForm = document.querySelector('.feedback-form');
+const inputEmail = document.querySelector('input');
+const textArreaMessage = document.querySelector('textarea');
 
-const formData = {};
+const handleInput = () => {
+  localStorage.setItem(
+    FEEDBACK_FORM_LOCAL_STORAGE_KEY,
+    JSON.stringify({ email: inputEmail.value, message: textArreaMessage.value })
+  );
+};
 
-function onFormRecord(e) {
-  formData[e.target.name] = e.target.value;
-  localStorage.setItem('feedback-form-state', JSON.stringify(formData));
-}
+const fillForm = () => {
+  const dataFormParse = JSON.parse(
+    localStorage.getItem(FEEDBACK_FORM_LOCAL_STORAGE_KEY)
+  );
 
-function onSubmitForm(e) {
-  // console.log(JSON.parse(localStorage.getItem('feedback-form-state')));
-  e.preventDefault();
-  e.currentTarget.reset();
-  localStorage.removeItem('feedback-form-state');
-}
+  if (!dataFormParse) {
+    return;
+  }
 
-(function recordsFromLocalStorage() {
-  const data = JSON.parse(localStorage.getItem('feedback-form-state'));
-  console.dir(data);
-  const email = document.querySelector('.feedback-form input');
-  const message = document.querySelector('.feedback-form textarea');
+  inputEmail.value = dataFormParse.email;
+  textArreaMessage.value = dataFormParse.message;
+};
 
-  data.email ? (email.value = data.email) : (email.value = ``);
-  data.message ? (message.value = data.message) : (message.messagevalue = ``);
-})();
+const submitForm = event => {
+  event.preventDefault();
+
+  console.log({ email: inputEmail.value, message: textArreaMessage.value });
+
+  localStorage.removeItem(FEEDBACK_FORM_LOCAL_STORAGE_KEY);
+
+  feedbackForm.reset();
+};
+
+inputEmail.addEventListener('input', throttle(handleInput, 500));
+textArreaMessage.addEventListener('input', throttle(handleInput, 500));
+feedbackForm.addEventListener('submit', submitForm);
+
+fillForm();
